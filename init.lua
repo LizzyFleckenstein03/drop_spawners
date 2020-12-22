@@ -12,9 +12,11 @@ minetest.override_item("mcl_mobspawners:spawner", {
 	end,
 	after_dig_node = function(pos, node, meta, digger)
 		local itemstack = ItemStack("mcl_mobspawners:spawner")
-		itemstack:get_meta():from_table(meta)
-		tt.reload_itemstack_description(itemstack)
-		minetest.add_item(pos, itemstack)
+		if mcl_enchanting.has_enchantment(digger:get_wielded_item(), "silk_touch") then
+			itemstack:get_meta():from_table(meta)
+			tt.reload_itemstack_description(itemstack)
+			minetest.add_item(pos, itemstack)
+		end
 	end
 })
 
